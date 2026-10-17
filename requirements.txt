@@ -1,0 +1,9 @@
+opencv-python
+numpy
+matplotlib
+pyyaml
+pyrealsense2
+pyudev
+PyQt5
+Pillow
+open3d

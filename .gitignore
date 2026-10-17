@@ -1,0 +1,26 @@
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Binários e builds de C++
+build/
+*.o
+*.out
+
+# Saídas geradas pelos scripts
+calibracion.yaml
+video_canny.mp4
+video_gris.mp4
+video_procesado.mp4
+output_video.avi
+output_image.jpg
+captura*.png
+*.raw
+
+# Dados versionados de propósito
+!dados/**
