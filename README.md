@@ -58,16 +58,11 @@ Pesquisa-USP/
 │   ├── exemplos/         # Imagens RGB e de profundidade de exemplo
 │   ├── sequencia_ps_eye/ # 50 frames capturados com a PS Eye
 │   └── videos/           # Vídeos RGB, em cinza, de profundidade e processado
-└── docs/img/
 ```
 
 ## Módulos
 
 ### 01 · Captura RGB-D
-
-![Imagem RGB e pontos-chave ORB](docs/img/rgb_e_pontos_orb.jpg)
-
-*Primeiros testes com câmera RGB-D (2023): imagem RGB e pontos-chave ORB.*
 
 - **Intel RealSense:** captura de cor e profundidade com `pyrealsense2`,
   inspeção dos sensores e perfis de stream do dispositivo, e versões em C++
