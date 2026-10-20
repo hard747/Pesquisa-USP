@@ -30,7 +30,6 @@ anteriores de cada etapa estão em repositórios próprios:
 | Repositório | Conteúdo |
 |---|---|
 | **Pesquisa-USP** (este) | Captura RGB-D, calibração e extração de características (fase inicial); rastreador ocular em tempo real, pipeline de segmentação de pupila e glints, ground truth com amostragem estratificada e firmware do estroboscópio (sistema final) |
-| [Codigo_Experimentos_Fixacao_Perseguicao](https://github.com/hard747/Codigo_Experimentos_Fixacao_Perseguicao) | Aplicação usada na coleta de dados com os participantes (fixações e perseguições suaves) |
 | [Differential-Stroboscopic-Eye-Tracker](https://github.com/hard747/Differential-Stroboscopic-Eye-Tracker) | Eye tracker com luz estroboscópica diferencial: sincronização câmera–LEDs, detecção do centro da pupila e dos glints em vídeo |
 | [Segmentacao-da-Pupila](https://github.com/hard747/Segmentacao-da-Pupila) | Pipeline de segmentação da pupila e dos glints, calibração do olhar e predição do ponto de fixação, com diagramas UML da arquitetura |
 | [Pupil-Segmentation-from-SDL](https://github.com/hard747/Pupil-Segmentation-from-SDL) | Implementação em C++ (CMake) da detecção de pupila e glint, integrando algoritmos clássicos da literatura (ElSe, ExCuSe, Świrski) para comparação |
@@ -54,6 +53,7 @@ Pesquisa-USP/
 ├── 07-segmentacao-pupila-glint/  # Detector v4 (Kalman, subpixel) e pipelines dos 15 participantes
 ├── 08-ground-truth-e-avaliacao/  # Amostragem estratificada, anotação manual e avaliação
 ├── 09-firmware-arduino/       # Sincronização câmera–LEDs infravermelhos (estroboscópio)
+├── 10-coleta-de-dados/        # Aplicação de coleta: fixações e perseguições suaves
 ├── dados/
 │   ├── exemplos/         # Imagens RGB e de profundidade de exemplo
 │   ├── sequencia_ps_eye/ # 50 frames capturados com a PS Eye
@@ -65,10 +65,9 @@ Pesquisa-USP/
 
 ### 01 · Captura RGB-D
 
-![Painel da fase inicial: RGB, profundidade, pontos ORB e bordas Canny](docs/img/painel_rgb_profundidade_orb_canny.jpg)
+![Imagem RGB e pontos-chave ORB](docs/img/rgb_e_pontos_orb.jpg)
 
-*Primeiros testes com câmera RGB-D (2023): imagem RGB, profundidade em 8 bits,
-pontos-chave ORB e bordas Canny.*
+*Primeiros testes com câmera RGB-D (2023): imagem RGB e pontos-chave ORB.*
 
 - **Intel RealSense:** captura de cor e profundidade com `pyrealsense2`,
   inspeção dos sensores e perfis de stream do dispositivo, e versões em C++
@@ -151,6 +150,14 @@ manuais, e não apenas contra verificações internas:
   com o obturador da câmera por interrupções.
 - `clock/`: gerador de clock para sincronização externa.
 - `teste_strobo/`: teste simples de alternância dos LEDs.
+
+### 10 · Coleta de dados
+`experimento_fixacoes_perseguicoes.py` é a aplicação usada nos experimentos com
+os participantes. Ela apresenta, em tela cheia (1920×1080), alvos em uma grade
+de 7×5 pontos para **fixações** e alvos em movimento para **perseguições
+suaves**, enquanto a câmera PS3 Eye grava os olhos. Para cada sessão, grava os
+quadros e um CSV com a posição do alvo em cada instante, usados depois para
+calibrar e avaliar o rastreador.
 
 ## O que não está publicado
 
