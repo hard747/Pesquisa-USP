@@ -20,11 +20,6 @@ sincronizados com a câmera), para segmentar a pupila e o reflexo corneano
 Glint Segmentation in Remote Stroboscopic Differential Lighting"* —
 submetido ao **ETRA 2027** (em revisão por pares).
 
-![Painel: RGB, profundidade, pontos ORB e bordas Canny](docs/img/painel_rgb_profundidade_orb_canny.jpg)
-
-*Câmera RGB-D: imagem RGB (sup. esq.), mapa de profundidade (sup. dir.),
-pontos-chave ORB (inf. esq.) e bordas Canny sobre a profundidade (inf. dir.).*
-
 ## Mapa da pesquisa
 
 Este repositório reúne a **fase inicial** (captura RGB-D, calibração e
@@ -69,6 +64,12 @@ Pesquisa-USP/
 ## Módulos
 
 ### 01 · Captura RGB-D
+
+![Painel da fase inicial: RGB, profundidade, pontos ORB e bordas Canny](docs/img/painel_rgb_profundidade_orb_canny.jpg)
+
+*Primeiros testes com câmera RGB-D (2023): imagem RGB, profundidade em 8 bits,
+pontos-chave ORB e bordas Canny.*
+
 - **Intel RealSense:** captura de cor e profundidade com `pyrealsense2`,
   inspeção dos sensores e perfis de stream do dispositivo, e versões em C++
   com `librealsense2`. Inclui a versão com a API legada `librealsense` 1.x,
@@ -151,12 +152,16 @@ manuais, e não apenas contra verificações internas:
 - `clock/`: gerador de clock para sincronização externa.
 - `teste_strobo/`: teste simples de alternância dos LEDs.
 
-## Dados dos participantes
+## O que não está publicado
 
-Os dados coletados (imagens dos olhos e anotações) **não são publicados**,
-conforme o Termo de Consentimento Livre e Esclarecido (TCLE) assinado pelos
-participantes. No código, os participantes aparecem apenas com códigos
-anônimos (P01, P02, …).
+- **Dados dos participantes:** as imagens dos olhos, os vídeos e as anotações
+  coletados nos experimentos não são publicados, conforme o Termo de
+  Consentimento Livre e Esclarecido (TCLE) e a proteção de dados pessoais. No
+  código, os participantes aparecem apenas com códigos anônimos (P01, P02, …).
+- **Material do laboratório:** parte do código, das imagens e dos resultados
+  foi desenvolvida em projetos do laboratório do IME-USP, como os experimentos
+  de reconstrução 3D (COLMAP, NeRF e 3D Gaussian Splatting), SLAM e ROS. Esse
+  material pertence ao laboratório e não pode ser publicado.
 
 ## Como executar
 
