@@ -54,10 +54,10 @@ Pesquisa-USP/
 ├── 08-ground-truth-e-avaliacao/  # Amostragem estratificada, anotação manual e avaliação
 ├── 09-firmware-arduino/       # Sincronização câmera–LEDs infravermelhos (estroboscópio)
 ├── 10-coleta-de-dados/        # Aplicação de coleta: fixações e perseguições suaves
-├── dados/
-│   ├── exemplos/         # Imagens RGB e de profundidade de exemplo
-│   ├── sequencia_ps_eye/ # 50 frames capturados com a PS Eye
-│   └── videos/           # Vídeos RGB, em cinza, de profundidade e processado
+└── dados/
+    ├── exemplos/         # Imagens RGB e de profundidade de exemplo
+    ├── sequencia_ps_eye/ # 50 frames capturados com a PS Eye
+    └── videos/           # Vídeos RGB, em cinza, de profundidade e processado
 ```
 
 ## Módulos
