@@ -27,13 +27,15 @@ pontos-chave ORB (inf. esq.) e bordas Canny sobre a profundidade (inf. dir.).*
 
 ## Mapa da pesquisa
 
-Este repositório reúne a **primeira fase** (captura RGB-D, calibração e
-extração de características). As fases seguintes estão em repositórios
-próprios:
+Este repositório reúne a **fase inicial** (captura RGB-D, calibração e
+extração de características) e o **sistema final da dissertação**: rastreador
+em tempo real, pipeline de segmentação, ground truth e firmware. As versões
+anteriores de cada etapa estão em repositórios próprios:
 
 | Repositório | Conteúdo |
 |---|---|
-| **Pesquisa-USP** (este) | Captura com câmeras RGB-D (Intel RealSense, Kinect) e PS Eye, calibração de câmera, extração de características (ORB, Harris, Shi-Tomasi, Canny, DoG), interfaces de captura e ambiente Docker para ORB-SLAM2 |
+| **Pesquisa-USP** (este) | Captura RGB-D, calibração e extração de características (fase inicial); rastreador ocular em tempo real, pipeline de segmentação de pupila e glints, ground truth com amostragem estratificada e firmware do estroboscópio (sistema final) |
+| [Codigo_Experimentos_Fixacao_Perseguicao](https://github.com/hard747/Codigo_Experimentos_Fixacao_Perseguicao) | Aplicação usada na coleta de dados com os participantes (fixações e perseguições suaves) |
 | [Differential-Stroboscopic-Eye-Tracker](https://github.com/hard747/Differential-Stroboscopic-Eye-Tracker) | Eye tracker com luz estroboscópica diferencial: sincronização câmera–LEDs, detecção do centro da pupila e dos glints em vídeo |
 | [Segmentacao-da-Pupila](https://github.com/hard747/Segmentacao-da-Pupila) | Pipeline de segmentação da pupila e dos glints, calibração do olhar e predição do ponto de fixação, com diagramas UML da arquitetura |
 | [Pupil-Segmentation-from-SDL](https://github.com/hard747/Pupil-Segmentation-from-SDL) | Implementação em C++ (CMake) da detecção de pupila e glint, integrando algoritmos clássicos da literatura (ElSe, ExCuSe, Świrski) para comparação |
@@ -53,6 +55,10 @@ Pesquisa-USP/
 ├── 03-processamento-imagens/  # ORB, Harris, Shi-Tomasi, Canny, DoG, painéis RGB-D
 ├── 04-interfaces-graficas/    # Captura e processamento com PyQt5 e Tkinter
 ├── 05-slam/                   # Ambiente Docker com ORB-SLAM2 + RealSense (GPU)
+├── 06-rastreador-tempo-real/  # Sistema final: hardware, detector, calibração e UI em processos
+├── 07-segmentacao-pupila-glint/  # Detector v4 (Kalman, subpixel) e pipelines dos 15 participantes
+├── 08-ground-truth-e-avaliacao/  # Amostragem estratificada, anotação manual e avaliação
+├── 09-firmware-arduino/       # Sincronização câmera–LEDs infravermelhos (estroboscópio)
 ├── dados/
 │   ├── exemplos/         # Imagens RGB e de profundidade de exemplo
 │   ├── sequencia_ps_eye/ # 50 frames capturados com a PS Eye
@@ -101,6 +107,56 @@ xhost +local:docker
 docker compose up -d
 docker exec -it orb-slam-container bash
 ```
+
+### 06 · Rastreador ocular em tempo real
+Sistema final da dissertação, organizado em **4 processos** coordenados por um
+orquestrador (`rt_orchestrator.py`):
+- **Hardware** (`rt_hardware.py`): captura com a PS3 Eye, controle do
+  estroboscópio via Arduino e sincronização ativa pelo método da "faixa preta",
+  com monitoramento de falhas de sincronia.
+- **Detector** (`rt_detector.py`): classificação de quadros claros/escuros,
+  segmentação da pupila por watershed, seleção dos glints e vetor
+  pupila–glint com filtro EMA.
+- **Engine** (`rt_engine.py`): calibração por regressão polinomial Ridge e
+  estimação do olhar na tela, com relatório final (CSV, estatísticas e heatmap).
+- **UI** (`rt_ui.py`): interface de calibração e visualização.
+
+A pasta `analise_perda_quadros/` traz as medições de perda de quadros usadas
+para validar a sincronização.
+
+### 07 · Segmentação de pupila e glints
+- `pupil_glint_detector_v4.py`: detector com **filtro de Kalman** (estado
+  `[x, y, r, vx, vy]`), busca anular a partir da predição, *gate* de
+  Mahalanobis para rejeitar falhas e distinção entre sacada e outlier.
+- `pipeline_15_participantes.py` e `pipeline_completo.py`: processamento de ponta
+  a ponta por participante — segmentação, calibração (Ridge polinomial grau 2,
+  9 alvos de treino e 26 de teste), filtro EMA e exportação dos resultados.
+- `segmentacao_pupila_glint.py`: versão interativa com validação de piscadas e
+  gravação de vídeo de saída.
+
+### 08 · Ground truth e avaliação
+Ferramentas para medir a **acurácia real** do detector contra anotações
+manuais, e não apenas contra verificações internas:
+- `sample_frames.py`: amostragem **estratificada** (participante × sessão ×
+  quadro claro/escuro), com limiar por sessão (Otsu) e exclusão de piscadas.
+- `refine_seeds.py`: centraliza o recorte de anotação por diferença temporal.
+- `annotate.py`: anotação com zoom e precisão subpixel do centro da pupila e
+  dos glints.
+- `eval_v4_large_gt.py`: avaliação do detector v4 contra o ground truth,
+  separada por quadros claros e escuros.
+
+### 09 · Firmware Arduino
+- `strobe/`: alternância dos LEDs infravermelhos on-axis/off-axis sincronizada
+  com o obturador da câmera por interrupções.
+- `clock/`: gerador de clock para sincronização externa.
+- `teste_strobo/`: teste simples de alternância dos LEDs.
+
+## Dados dos participantes
+
+Os dados coletados (imagens dos olhos e anotações) **não são publicados**,
+conforme o Termo de Consentimento Livre e Esclarecido (TCLE) assinado pelos
+participantes. No código, os participantes aparecem apenas com códigos
+anônimos (P01, P02, …).
 
 ## Como executar
 

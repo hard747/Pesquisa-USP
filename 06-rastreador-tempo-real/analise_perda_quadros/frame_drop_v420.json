@@ -1,0 +1,97 @@
+{
+    "1": {
+        "sys_avg": 0.4639768238718867,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "2": {
+        "sys_avg": 3.935041117292783,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "3": {
+        "sys_avg": 13.199837262510128,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "4": {
+        "sys_avg": 0.1318653973116996,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "5": {
+        "sys_avg": 0.5250312525103544,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "6": {
+        "sys_avg": 0.27992240882851194,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "7": {
+        "sys_avg": 0.0,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "8": {
+        "sys_avg": 7.17346316695214,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "9": {
+        "sys_avg": 6.639198675860006,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "10": {
+        "sys_avg": 7.78049223052845,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "11": {
+        "sys_avg": 7.126016030906596,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "12": {
+        "sys_avg": 7.704198784310543,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "13": {
+        "sys_avg": 7.272420743713972,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "14": {
+        "sys_avg": 7.630237509278258,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "15": {
+        "sys_avg": 6.837161761374487,
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "count": 7
+    },
+    "GLOBAL": {
+        "base_avg": 0.0,
+        "base_std": 0.0,
+        "user_count": 15
+    }
+}
